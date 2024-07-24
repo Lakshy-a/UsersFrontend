@@ -1,12 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   // Initial values
   const initialValues = {
     email: "",
@@ -42,13 +45,16 @@ function Login() {
           onSubmit={onSubmit}
         >
           {({ handleSubmit }) => (
-            <Form onSubmit={handleSubmit}>
+            <Form action="POST">
               <div>
                 <Field
                   type="email"
                   name="email"
                   placeholder="Email..."
                   className="w-80 h-10 rounded-lg border-2 border-gray-300 p-3 my-4"
+                  onChange={(e)=>{
+                    setEmail(e.target.value)
+                  }}
                 />
                 <ErrorMessage
                   name="email"
@@ -62,6 +68,9 @@ function Login() {
                   name="password"
                   placeholder="Password..."
                   className="w-80 h-10 rounded-lg border-2 border-gray-300 p-3"
+                  onChange={(e)=>{
+                    setPassword(e.target.value)
+                  }}
                 />
                 <ErrorMessage
                   name="password"
@@ -78,7 +87,7 @@ function Login() {
                 </Link>
               </div>
               <div className="flex justify-center items-center w-80 text-white font-medium h-10 bg-blue-500 hover:bg-blue-900 rounded-lg mt-4">
-                <button type="submit" className="w-full h-full">
+                <button type="submit" className="w-full h-full" onSubmit={handleSubmit}>
                   Login
                 </button>
               </div>
