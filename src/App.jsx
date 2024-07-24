@@ -34,33 +34,31 @@ function App() {
           </div>
         </div>
       </BrowserRouter>
+    {/* <BrowserRouter>
+      <div className="app-container h-screen w-screen flex">
+        <div className="sidebar h-full w-1/5">
+          <Sidebar />
+        </div>
+        <div className="headerBar h-24 w-4/5 ">
+          <div>
+            <Header />
+          </div>
+          <div className="p-4">
+            <Routes>
+              <Route path="/" element={<WelcomePage/>} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/ecommerce" element={<Ecommerce />} />
+              <Route path="/category" element={<Category />} />
+              <Route path="/order" element={<Order />} />
+              <Route path="/user" element={<User />} />
+              <Route path="/roles" element={<Roles />} />
+            </Routes>
+          </div>
+        </div>
+      </div>
+    </BrowserRouter> */}
     </>
-    // <BrowserRouter>
-    //   <div className="app-container h-screen w-screen flex">
-    //     <div className="sidebar h-full w-1/5">
-    //       <Sidebar />
-    //     </div>
-    //     <div className="headerBar h-24 w-4/5 ">
-    //       <div>
-    //         <Header />
-    //       </div>
-    //       <div className="p-4">
-    //         <Routes>
-    //           <Route path="/" element={<WelcomePage/>} />
-    //           <Route path="/dashboard" element={<Dashboard />} />
-    //           <Route path="/ecommerce" element={<Ecommerce />} />
-    //           <Route path="/category" element={<Category />} />
-    //           <Route path="/order" element={<Order />} />
-    //           <Route path="/user" element={<User />} />
-    //           <Route path="/roles" element={<Roles />} />
-    //           <Route path="/login" element={<Login />} />
-    //           <Route path="/signup" element={<Signup />} />
-    //           <Route path="/forgot-password" element={<ForgotPassword />} />
-    //         </Routes>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </BrowserRouter>
+
   );
 }
 
