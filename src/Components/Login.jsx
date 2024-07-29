@@ -5,11 +5,9 @@ import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
   // Initial values
   const initialValues = {
     email: "",
@@ -28,8 +26,16 @@ function Login() {
   });
 
   // On form submission
-  const onSubmit = (values) => {
-    console.log("Form data", values);
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      await axios.post("http://localhost:3000/auth/login", {
+        email: values.email,
+        password: values.password
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    setSubmitting(false);
   };
 
   return (
@@ -42,19 +48,16 @@ function Login() {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={onSubmit}
+          onSubmit={handleSubmit}
         >
-          {({ handleSubmit }) => (
-            <Form action="POST">
+          {({ isSubmitting }) => (
+            <Form>
               <div>
                 <Field
                   type="email"
                   name="email"
                   placeholder="Email..."
                   className="w-80 h-10 rounded-lg border-2 border-gray-300 p-3 my-4"
-                  onChange={(e)=>{
-                    setEmail(e.target.value)
-                  }}
                 />
                 <ErrorMessage
                   name="email"
@@ -68,9 +71,6 @@ function Login() {
                   name="password"
                   placeholder="Password..."
                   className="w-80 h-10 rounded-lg border-2 border-gray-300 p-3"
-                  onChange={(e)=>{
-                    setPassword(e.target.value)
-                  }}
                 />
                 <ErrorMessage
                   name="password"
@@ -87,7 +87,7 @@ function Login() {
                 </Link>
               </div>
               <div className="flex justify-center items-center w-80 text-white font-medium h-10 bg-blue-500 hover:bg-blue-900 rounded-lg mt-4">
-                <button type="submit" className="w-full h-full" onSubmit={handleSubmit}>
+                <button type="submit" className="w-full h-full" disabled={isSubmitting}>
                   Login
                 </button>
               </div>
