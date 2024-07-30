@@ -16,6 +16,7 @@ import Login from "./Components/Login";
 import Signup from "./Components/SignUp";
 import ForgotPassword from "./Components/ForgotPassword";
 import WelcomePage from "./Components/WelcomePage";
+import Home from "./Components/Home";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/dashboard" element={<Home/>}/>
               </Routes>
             </div>
           </div>

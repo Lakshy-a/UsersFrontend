@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -8,6 +9,8 @@ import * as Yup from "yup";
 import axios from "axios";
 
 function Login() {
+  const navigate = useNavigate();
+
   // Initial values
   const initialValues = {
     email: "",
@@ -34,6 +37,12 @@ function Login() {
       });
       alert("Logged In")
       console.log(response);
+
+      if (response.status === 200) {
+        // On successful login, navigate to the home page
+        navigate("/dashboard");
+      }
+
     } catch (error) {
       console.log(error);
     }

@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -8,26 +9,27 @@ import * as Yup from "yup";
 import axios from "axios";
 
 function Signup() {
+  const navigate = useNavigate();
+
   // Initial values
   const initialValues = {
     username: "",
     email: "",
-    password: ""
+    password: "",
   };
 
   // Yup validation schema
   const validationSchema = Yup.object({
-    username: Yup.string()
-    .required("Name is required"),
+    username: Yup.string().required("Name is required"),
     email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
+      .email("Invalid email format")
+      .required("Email is required"),
     password: Yup.string()
-    .min(8, "Password must be 8 characters long")
-    .matches(/[0-9]/, "Password requires a number")
-    .matches(/[a-z]/, "Password requires a lowercase letter")
-    .matches(/[A-Z]/, "Password requires an uppercase letter")
-    .matches(/[^\w]/, "Password requires a symbol"),
+      .min(8, "Password must be 8 characters long")
+      .matches(/[0-9]/, "Password requires a number")
+      .matches(/[a-z]/, "Password requires a lowercase letter")
+      .matches(/[A-Z]/, "Password requires an uppercase letter")
+      .matches(/[^\w]/, "Password requires a symbol"),
   });
 
   // On form submission
@@ -36,9 +38,10 @@ function Signup() {
       const response = await axios.post("http://localhost:3000/auth/signup", {
         username: values.username,
         email: values.email,
-        password: values.password
+        password: values.password,
       });
-      //  console.log(response);
+      navigate("/login");
+      console.log(response);
       // if(response.ok){
       //      alert("account created");
       // }
@@ -69,7 +72,11 @@ function Signup() {
                   placeholder="Name..."
                   className="w-80 h-10 rounded-lg border-2 border-gray-300 p-3 mt-4"
                 />
-                <ErrorMessage name="name" component="div" className="text-red-600" />
+                <ErrorMessage
+                  name="name"
+                  component="div"
+                  className="text-red-600"
+                />
               </div>
               <div>
                 <Field
@@ -78,7 +85,11 @@ function Signup() {
                   placeholder="Email..."
                   className="w-80 h-10 rounded-lg border-2 border-gray-300 p-3 mt-4"
                 />
-                <ErrorMessage name="email" component="div" className="text-red-600" />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="text-red-600"
+                />
               </div>
               <div>
                 <Field
@@ -87,7 +98,11 @@ function Signup() {
                   placeholder="Password..."
                   className="w-80 h-10 rounded-lg border-2 border-gray-300 p-3 mt-4"
                 />
-                <ErrorMessage name="password" component="div" className="text-red-600" />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="text-red-600"
+                />
               </div>
               <div className="flex justify-center items-center w-80 text-white font-medium h-10 bg-blue-500 hover:bg-blue-900 rounded-lg mt-7">
                 <button type="submit" className="w-full h-full">
@@ -100,7 +115,9 @@ function Signup() {
         <div className="flex justify-center items-center w-80 my-4">
           <div className="text-sm cursor-pointer font-medium text-black">
             Already have an account?{" "}
-            <Link to="/login" className="text-black hover:text-red-500">Log In</Link>
+            <Link to="/login" className="text-black hover:text-red-500">
+              Log In
+            </Link>
           </div>
         </div>
       </div>
