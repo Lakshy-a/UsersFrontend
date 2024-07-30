@@ -1,23 +1,23 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
 
 function Signup() {
   // Initial values
   const initialValues = {
-    name: "",
+    username: "",
     email: "",
-    password: "",
-    confirmPassword: "",
+    password: ""
   };
 
   // Yup validation schema
   const validationSchema = Yup.object({
-    name: Yup.string()
+    username: Yup.string()
     .required("Name is required"),
     email: Yup.string()
     .email("Invalid email format")
@@ -28,14 +28,24 @@ function Signup() {
     .matches(/[a-z]/, "Password requires a lowercase letter")
     .matches(/[A-Z]/, "Password requires an uppercase letter")
     .matches(/[^\w]/, "Password requires a symbol"),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], "Passwords must match")
-      .required("Confirm password is required"),
   });
 
   // On form submission
-  const onSubmit = (values) => {
-    console.log("Form data", values);
+  const onSubmit = async (values, { setSubmitting }) => {
+    try {
+      const response = await axios.post("http://localhost:3000/auth/signup", {
+        username: values.username,
+        email: values.email,
+        password: values.password
+      });
+      //  console.log(response);
+      // if(response.ok){
+      //      alert("account created");
+      // }
+    } catch (error) {
+      console.log(error);
+    }
+    setSubmitting(false);
   };
 
   return (
@@ -54,7 +64,7 @@ function Signup() {
             <Form onSubmit={handleSubmit}>
               <div>
                 <Field
-                  name="name"
+                  name="username"
                   type="text"
                   placeholder="Name..."
                   className="w-80 h-10 rounded-lg border-2 border-gray-300 p-3 mt-4"
@@ -78,15 +88,6 @@ function Signup() {
                   className="w-80 h-10 rounded-lg border-2 border-gray-300 p-3 mt-4"
                 />
                 <ErrorMessage name="password" component="div" className="text-red-600" />
-              </div>
-              <div>
-                <Field
-                  name="confirmPassword"
-                  type="password"
-                  placeholder="Confirm Password..."
-                  className="w-80 h-10 rounded-lg border-2 border-gray-300 p-3 mt-4"
-                />
-                <ErrorMessage name="confirmPassword" component="div" className="text-red-600" />
               </div>
               <div className="flex justify-center items-center w-80 text-white font-medium h-10 bg-blue-500 hover:bg-blue-900 rounded-lg mt-7">
                 <button type="submit" className="w-full h-full">

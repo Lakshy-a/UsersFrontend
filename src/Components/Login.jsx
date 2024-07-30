@@ -28,10 +28,12 @@ function Login() {
   // On form submission
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      await axios.post("http://localhost:3000/auth/login", {
+      const response = await axios.post("http://localhost:3000/auth/login", {
         email: values.email,
         password: values.password
       });
+      alert("Logged In")
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
