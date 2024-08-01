@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/auth'; // Replace with your backend API URL
+const API_URL = 'http://localhost:3000/auth'; 
 
 export const signup = (userData) => {
   return axios.post(`${API_URL}/signup`, userData);

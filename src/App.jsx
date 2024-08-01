@@ -30,13 +30,19 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/dashboard" element={<Home/>}/>
+                <Route path="/home/*" element={<Home />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/ecommerce" element={<Ecommerce />} />
+                <Route path="/category" element={<Category />} />
+                <Route path="/order" element={<Order />} />
+                <Route path="/user" element={<User />} />
+                <Route path="/roles" element={<Roles />} />
               </Routes>
             </div>
           </div>
         </div>
       </BrowserRouter>
-    {/* <BrowserRouter>
+      {/* <BrowserRouter>
       <div className="app-container h-screen w-screen flex">
         <div className="sidebar h-full w-1/5">
           <Sidebar />
@@ -60,7 +66,6 @@ function App() {
       </div>
     </BrowserRouter> */}
     </>
-
   );
 }
 
