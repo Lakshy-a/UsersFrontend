@@ -2,8 +2,12 @@
 // FormComponent.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-function FormComponent() {
+
+function AddProduct() {
+    const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -29,11 +33,12 @@ function FormComponent() {
       console.error('Error adding product:', error.response ? error.response.data : error.message);
       alert('Error adding product');
     }
+    navigate('/catalog');
   };
 
   return (
     <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
-      <h2 className="text-2xl font-bold mb-4">Product Form</h2>
+      <h2 className="text-2xl font-bold mb-4">Add Product</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
@@ -100,7 +105,7 @@ function FormComponent() {
             type="submit"
             className="w-full px-4 py-2 bg-indigo-600 text-white font-semibold rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Submit
+            Add Product
           </button>
         </div>
       </form>
@@ -108,4 +113,4 @@ function FormComponent() {
   );
 }
 
-export default FormComponent;
+export default AddProduct;
