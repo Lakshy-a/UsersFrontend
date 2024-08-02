@@ -26,6 +26,17 @@ const Sidebar = () => {
           </div>
         </div>
         <div className="flex">
+          <span className="w-1/5 flex justify-center items-center mx-2 material-symbols-outlined">database</span>
+          <div className="w-4/5 flex justify-between items-center">
+            <li className="py-4 text-lg">
+              <Link to="/catalog">Catalog</Link>
+            </li>
+            <span className="material-symbols-outlined cursor-pointer">
+              keyboard_arrow_down
+            </span>
+          </div>
+        </div>
+        <div className="flex">
           <span className="w-1/5 flex justify-center items-center mx-2 material-symbols-outlined">
             shopping_cart
           </span>
