@@ -40,7 +40,7 @@ function Login() {
 
       if (response.status === 200) {
         // On successful login, navigate to the home page
-        navigate("/dashboard");
+        navigate("/home");
       }
 
     } catch (error) {
