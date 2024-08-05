@@ -17,10 +17,11 @@ import Signup from "./Components/SignUp";
 import ForgotPassword from "./Components/ForgotPassword";
 import WelcomePage from "./Components/WelcomePage";
 import Home from "./Components/Home";
-import Catalog from "./Components/Catalog";
+import ManageProducts from "./Components/ManageProducts";
 import AddProduct from "./Components/AddProduct";
 import RemoveProduct from "./Components/RemoveProduct";
 import UpdateProduct from "./Components/UpdateProduct";
+import AllProducts from "./Components/AllProducts";
 
 function App() {
   return (
@@ -36,7 +37,7 @@ function App() {
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/home/*" element={<Home />} />
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/catalog" element={<Catalog />} />
+                <Route path="/manageProducts" element={<ManageProducts />} />
                 <Route path="/ecommerce" element={<Ecommerce />} />
                 <Route path="/category" element={<Category />} />
                 <Route path="/order" element={<Order />} />
@@ -45,6 +46,7 @@ function App() {
                 <Route path="/addproduct" element={<AddProduct />} />
                 <Route path="/removeProduct" element={<RemoveProduct />} />
                 <Route path="/updateproduct" element={<UpdateProduct />} />
+                <Route path="/allProducts" element={<AllProducts />} />
               </Routes>
             </div>
           </div>

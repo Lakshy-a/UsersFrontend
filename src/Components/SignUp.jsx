@@ -16,6 +16,7 @@ function Signup() {
     username: "",
     email: "",
     password: "",
+    role: "user", // Default role
   };
 
   // Yup validation schema
@@ -30,6 +31,7 @@ function Signup() {
       .matches(/[a-z]/, "Password requires a lowercase letter")
       .matches(/[A-Z]/, "Password requires an uppercase letter")
       .matches(/[^\w]/, "Password requires a symbol"),
+    role: Yup.string().required("Role is required"),
   });
 
   // On form submission
@@ -39,12 +41,10 @@ function Signup() {
         username: values.username,
         email: values.email,
         password: values.password,
+        role: values.role,
       });
       navigate("/login");
       console.log(response);
-      // if(response.ok){
-      //      alert("account created");
-      // }
     } catch (error) {
       console.log(error);
     }
@@ -63,7 +63,7 @@ function Signup() {
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
-          {({ handleSubmit }) => (
+          {({ handleSubmit, isSubmitting }) => (
             <Form onSubmit={handleSubmit}>
               <div>
                 <Field
@@ -73,7 +73,7 @@ function Signup() {
                   className="w-80 h-10 rounded-lg border-2 border-gray-300 p-3 mt-4"
                 />
                 <ErrorMessage
-                  name="name"
+                  name="username"
                   component="div"
                   className="text-red-600"
                 />
@@ -104,8 +104,19 @@ function Signup() {
                   className="text-red-600"
                 />
               </div>
+              <div>
+                <Field as="select" name="role" className="w-80 h-10 rounded-lg border-2 border-gray-300 mt-4 pl-2">
+                  <option value="user">User</option>
+                  <option value="admin">Admin</option>
+                </Field>
+                <ErrorMessage
+                  name="role"
+                  component="div"
+                  className="text-red-600"
+                />
+              </div>
               <div className="flex justify-center items-center w-80 text-white font-medium h-10 bg-blue-500 hover:bg-blue-900 rounded-lg mt-7">
-                <button type="submit" className="w-full h-full">
+                <button type="submit" className="w-full h-full" disabled={isSubmitting}>
                   Sign Up
                 </button>
               </div>

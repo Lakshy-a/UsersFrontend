@@ -15,6 +15,7 @@ function Login() {
   const initialValues = {
     email: "",
     password: "",
+    role: "user", // Default role
   };
 
   // Yup validation schema
@@ -26,6 +27,7 @@ function Login() {
       .matches(/[a-z]/, "Password requires a lowercase letter")
       .matches(/[A-Z]/, "Password requires an uppercase letter")
       .matches(/[^\w]/, "Password requires a symbol"),
+    role: Yup.string().required("Required"),
   });
 
   // On form submission
@@ -33,10 +35,12 @@ function Login() {
     try {
       const response = await axios.post("http://localhost:3000/auth/login", {
         email: values.email,
-        password: values.password
+        password: values.password,
+        role: values.role,
       });
       alert("Logged In")
       console.log(response);
+      console.log(values);
 
       if (response.status === 200) {
         // On successful login, navigate to the home page
@@ -51,7 +55,7 @@ function Login() {
 
   return (
     <div className="mainContainer flex justify-center items-center w-screen h-screen bg-[#3281FD]">
-      <div className="loginContainer flex flex-col items-center w-96 h-96 bg-white rounded-lg">
+      <div className="loginContainer flex flex-col items-center w-96 h-auto bg-white rounded-lg pb-3">
         <div className="flex justify-center items-center">
           <img className="h-24 w-72" src={logo} alt="Logo" />
         </div>
@@ -89,6 +93,17 @@ function Login() {
                   className="text-red-600"
                 />
               </div>
+              <div>
+                <Field as="select" name="role" className="w-80 h-10 rounded-lg border-2 border-gray-300 pl-2 my-4">
+                  <option value="user">User</option>
+                  <option value="admin">Admin</option>
+                </Field>
+                <ErrorMessage
+                  name="role"
+                  component="div"
+                  className="text-red-600"
+                />
+              </div>
               <div className="flex justify-end w-80">
                 <Link
                   to="/forgot-password"
@@ -105,7 +120,7 @@ function Login() {
             </Form>
           )}
         </Formik>
-        <div className="flex justify-center items-center w-80 mt-2">
+        <div className="flex justify-center items-center w-80 mt-2 ">
           <div className="text-sm cursor-pointer font-medium text-black">
             Don't have an account?{" "}
             <Link to="/signup" className="text-black hover:text-red-500">
