@@ -8,15 +8,15 @@ function ManageProducts() {
     const navigate = useNavigate();
 
     const handleAddProduct = () => {
-        navigate('/addProduct');
+        navigate('/manageProducts/addProduct');
       };
 
       const handleRemoveProduct = () => {
-        navigate('/removeProduct');
+        navigate('/manageProducts/removeProduct');
       };
 
       const handleUpdateProduct = () => {
-        navigate('/updateProduct');
+        navigate('/manageProducts/updateProduct');
       };
   return (
     <>

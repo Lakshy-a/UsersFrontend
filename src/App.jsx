@@ -43,9 +43,9 @@ function App() {
                 <Route path="/order" element={<Order />} />
                 <Route path="/user" element={<User />} />
                 <Route path="/roles" element={<Roles />} />
-                <Route path="/addproduct" element={<AddProduct />} />
-                <Route path="/removeProduct" element={<RemoveProduct />} />
-                <Route path="/updateproduct" element={<UpdateProduct />} />
+                <Route path="/manageProducts/addproduct" element={<AddProduct />} />
+                <Route path="/manageProducts/removeProduct" element={<RemoveProduct />} />
+                <Route path="/manageProducts/updateproduct" element={<UpdateProduct />} />
                 <Route path="/allProducts" element={<AllProducts />} />
               </Routes>
             </div>
