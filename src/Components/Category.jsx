@@ -40,14 +40,15 @@ const Category = () => {
               <Header />
             </div>
 
-            <h1 className="w-full flex justify-center items-center h-fit p-8 text-4xl font-bold">
+            <h1 className="w-full flex justify-center items-center h-fit pt-4 pb-2 text-4xl font-bold">
               All Categories
             </h1>
             <div className="product-container flex flex-wrap w-full ">
               {categories.map((category) => (
-                <div key={category._id} className="product box-border	w-1/4 p-2">
-                  <p className="text-lg font-bold	">Category Name: </p>
-                  <p>{category}</p>
+                <div key={category._id} className="product box-border	w-1/3 p-2 ">
+                  <p className="text-lg font-bold	"></p>
+                  <img src={category.image} alt={category} className="w-72 cursor-pointer" />
+                  <p className="text-center text-2xl font-bold cursor-pointer">{category.name}</p>
                 </div>
               ))}
             </div>
