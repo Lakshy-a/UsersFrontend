@@ -1,10 +1,33 @@
 /* eslint-disable no-unused-vars */
 // src/components/Category.js
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import axios from "axios";
 
 const Category = () => {
+  const fetchCategories = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:3000/categories/categories"
+      );
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const getAllCategories = async () => {
+      const categoriesFromAPI = await fetchCategories();
+      setCategories(categoriesFromAPI);
+    };
+
+    getAllCategories();
+  }, []);
+
   return (
     <div>
       <div>
@@ -16,13 +39,21 @@ const Category = () => {
             <div>
               <Header />
             </div>
-            <h2 className="text-xl font-bold mb-4">Category</h2>
-            {/* Add Category content here */}
+
+            <h1 className="w-full flex justify-center items-center h-fit p-8 text-4xl font-bold">
+              All Categories
+            </h1>
+            <div className="product-container flex flex-wrap w-full ">
+              {categories.map((category) => (
+                <div key={category._id} className="product box-border	w-1/4 p-2">
+                  <p className="text-lg font-bold	">Category Name: </p>
+                  <p>{category}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Add Ecommerce content here */}
     </div>
   );
 };

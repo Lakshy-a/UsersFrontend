@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import axios from 'axios';
+import Sidebar from './Sidebar';
+import Header from './Header';
 import { useNavigate } from 'react-router-dom';
 
 function UpdateProduct() {
@@ -58,7 +60,17 @@ function UpdateProduct() {
     };
 
     return (
-        <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
+        <div>
+      <div>
+        <div className="app-container h-screen w-screen flex">
+          <div className="sidebar h-full w-1/5">
+            <Sidebar />
+          </div>
+          <div className="headerBar h-24 w-4/5 ">
+            <div>
+              <Header />
+            </div>
+            <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg mt-1">
             <h2 className="text-2xl font-bold mb-4">Update Product</h2>
             <div className="mb-4">
                 <label htmlFor="productId" className="block text-sm font-medium text-gray-700">Product ID</label>
@@ -149,6 +161,13 @@ function UpdateProduct() {
                 </div>
             </form>
         </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Add Ecommerce content here */}
+    </div>
+       
     );
 }
 

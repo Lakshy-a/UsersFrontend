@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -38,16 +38,19 @@ function Login() {
         password: values.password,
         role: values.role,
       });
-      alert("Logged In")
+      alert("Logged In");
       console.log(response);
       console.log(values);
+
+      // Store access token in local storage
+      localStorage.setItem("accessToken", response.data.token);
 
       if (response.status === 200) {
         // On successful login, navigate to the home page
         navigate("/home");
       }
-
     } catch (error) {
+      alert("Logged Fialed!");
       console.log(error);
     }
     setSubmitting(false);
@@ -94,7 +97,11 @@ function Login() {
                 />
               </div>
               <div>
-                <Field as="select" name="role" className="w-80 h-10 rounded-lg border-2 border-gray-300 pl-2 my-4">
+                <Field
+                  as="select"
+                  name="role"
+                  className="w-80 h-10 rounded-lg border-2 border-gray-300 pl-2 my-4"
+                >
                   <option value="user">User</option>
                   <option value="admin">Admin</option>
                 </Field>
@@ -113,7 +120,11 @@ function Login() {
                 </Link>
               </div>
               <div className="flex justify-center items-center w-80 text-white font-medium h-10 bg-blue-500 hover:bg-blue-900 rounded-lg mt-4">
-                <button type="submit" className="w-full h-full" disabled={isSubmitting}>
+                <button
+                  type="submit"
+                  className="w-full h-full"
+                  disabled={isSubmitting}
+                >
                   Login
                 </button>
               </div>
