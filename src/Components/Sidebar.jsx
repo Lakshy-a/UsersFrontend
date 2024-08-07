@@ -40,18 +40,24 @@ const Sidebar = () => {
         </div>
 
         {/* manage products */}
-        <div className="flex flex-col" >
-          <div className="flex" >
-            <span className="w-1/5 flex justify-center items-center mx-2 material-symbols-outlined cursor-pointer" onClick={() => toggleDropdown('manageProducts')}>
+        <div className="flex flex-col">
+          <div className="flex">
+            <span
+              className="w-1/5 flex justify-center items-center mx-2 material-symbols-outlined cursor-pointer"
+              onClick={() => toggleDropdown("manageProducts")}
+            >
               database
             </span>
             <div className="w-4/5 flex justify-between items-center">
-              <li className="py-4 text-lg" onClick={() => toggleDropdown('manageProducts')}>
+              <li
+                className="py-4 text-lg"
+                onClick={() => toggleDropdown("manageProducts")}
+              >
                 <Link to="/manageProducts">Manage Products</Link>
               </li>
               <span
                 className="material-symbols-outlined cursor-pointer"
-                onClick={() => toggleDropdown('manageProducts')}
+                onClick={() => toggleDropdown("manageProducts")}
               >
                 keyboard_arrow_down
               </span>
@@ -64,10 +70,14 @@ const Sidebar = () => {
                   <Link to="/manageProducts/addProduct">Add Products</Link>
                 </li>
                 <li className="px-4 py-2 hover:bg-gray-200">
-                  <Link to="/manageProducts/removeProduct">Remove Products</Link>
+                  <Link to="/manageProducts/removeProduct">
+                    Remove Products
+                  </Link>
                 </li>
                 <li className="px-4 py-2 hover:bg-gray-200">
-                  <Link to="/manageProducts/updateProduct">Update Products</Link>
+                  <Link to="/manageProducts/updateProduct">
+                    Update Products
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -76,21 +86,24 @@ const Sidebar = () => {
 
         {/* ecommerce */}
         <div className="flex flex-col">
-          <div className="flex">
-            <span className="w-1/5 flex justify-center items-center mx-2 material-symbols-outlined">
-              shopping_cart
-            </span>
-            <div className="w-4/5 flex justify-between items-center">
-              <li className="py-4 text-lg">
-                <Link to="/ecommerce">Ecommerce</Link>
-              </li>
-              <span
-                className="material-symbols-outlined cursor-pointer"
-                onClick={() => toggleDropdown('ecommerce')}
-              >
-                keyboard_arrow_down
+          <div className="flex flex-col">
+            <div className="flex w-full">
+              <span className="w-1/5 flex justify-center items-center mx-2 material-symbols-outlined">
+                shopping_cart
               </span>
+              <div className="w-4/5 flex justify-between items-center">
+                <li className="py-4 text-lg">
+                  <Link to="/ecommerce">Ecommerce</Link>
+                </li>
+                <span
+                  className="material-symbols-outlined cursor-pointer"
+                  onClick={() => toggleDropdown("ecommerce")}
+                >
+                  keyboard_arrow_down
+                </span>
+              </div>
             </div>
+            <div className="w-full h-56 bg-black hidden"></div>
           </div>
         </div>
 
@@ -106,7 +119,7 @@ const Sidebar = () => {
               </li>
               <span
                 className="material-symbols-outlined cursor-pointer"
-                onClick={() => toggleDropdown('category')}
+                onClick={() => toggleDropdown("category")}
               >
                 keyboard_arrow_down
               </span>
@@ -126,7 +139,7 @@ const Sidebar = () => {
               </li>
               <span
                 className="material-symbols-outlined cursor-pointer"
-                onClick={() => toggleDropdown('orders')}
+                onClick={() => toggleDropdown("orders")}
               >
                 keyboard_arrow_down
               </span>
@@ -146,7 +159,7 @@ const Sidebar = () => {
               </li>
               <span
                 className="material-symbols-outlined cursor-pointer"
-                onClick={() => toggleDropdown('users')}
+                onClick={() => toggleDropdown("users")}
               >
                 keyboard_arrow_down
               </span>
@@ -166,7 +179,7 @@ const Sidebar = () => {
               </li>
               <span
                 className="material-symbols-outlined cursor-pointer"
-                onClick={() => toggleDropdown('roles')}
+                onClick={() => toggleDropdown("roles")}
               >
                 keyboard_arrow_down
               </span>
@@ -186,7 +199,7 @@ const Sidebar = () => {
               </li>
               <span
                 className="material-symbols-outlined cursor-pointer"
-                onClick={() => toggleDropdown('allProducts')}
+                onClick={() => toggleDropdown("allProducts")}
               >
                 keyboard_arrow_down
               </span>
