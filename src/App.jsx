@@ -45,6 +45,7 @@ const DynamicComponent = () => {
 function App() {
   return (
     <>
+    
       <BrowserRouter>
         <div className="app-container">
           <div className="main-content">
