@@ -7,7 +7,7 @@ import axios from "axios";
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(12);
   const [sort, setSort] = useState("createdAt");
   const [asc, setAsc] = useState(true);
 
@@ -24,6 +24,7 @@ const AllProducts = () => {
           },
         }
       );
+      console.log(limit);
       return res.data;
     } catch (err) {
       console.error(err);
@@ -84,10 +85,10 @@ const AllProducts = () => {
         <div className="product-container flex flex-wrap">
           {products.map((product) => (
             <div key={product._id} className="product box-border w-1/4 p-2">
-              <img src={product.imageUrl} alt={product.name} className="max-w-full h-auto" />
-              <h1 className="text-lg font-bold">{product.name}</h1>
+              <img src={product.productImage} alt={product.title} className="max-w-full h-auto" />
+              <h1 className="text-lg font-bold">{product.title}</h1>
               <p className="m-0"><b>Description</b>: {product.description}</p>
-              <p className="m-0"><b>Price</b>: ${product.price}</p>
+              <p className="m-0"><b>Price</b>: Rs.{product.price}</p>
             </div>
           ))}
         </div>

@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
-// /* eslint-disable no-unused-vars */
-// // src/App.js
+// src/App.js
 
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import Sidebar from "./Components/Sidebar";
 import Header from "./Components/Header";
 import Dashboard from "./Components/Dashboard";
@@ -22,6 +21,26 @@ import AddProduct from "./Components/AddProduct";
 import RemoveProduct from "./Components/RemoveProduct";
 import UpdateProduct from "./Components/UpdateProduct";
 import AllProducts from "./Components/AllProducts";
+import Clothes from "./Components/Clothes";
+import Shoes from "./Components/Shoes";
+import Furniture from "./Components/Furniture";
+import Electronics from "./Components/Electronics";
+import Miscellaneous from "./Components/Miscellaneous";
+
+const componentMap = {
+  Clothes,
+  Shoes,
+  Furniture,
+  Electronics,
+  Miscellaneous
+  // Add other mappings
+};
+
+const DynamicComponent = () => {
+  const { name } = useParams();
+  const Component = componentMap[name];
+  return Component ? <Component /> : <div>Component not found</div>;
+};
 
 function App() {
   return (
@@ -47,34 +66,12 @@ function App() {
                 <Route path="/manageProducts/removeProduct" element={<RemoveProduct />} />
                 <Route path="/manageProducts/updateproduct" element={<UpdateProduct />} />
                 <Route path="/allProducts" element={<AllProducts />} />
+                <Route path="/category/:name" element={<DynamicComponent />} />
               </Routes>
             </div>
           </div>
         </div>
       </BrowserRouter>
-      {/* <BrowserRouter>
-      <div className="app-container h-screen w-screen flex">
-        <div className="sidebar h-full w-1/5">
-          <Sidebar />
-        </div>
-        <div className="headerBar h-24 w-4/5 ">
-          <div>
-            <Header />
-          </div>
-          <div className="p-4">
-            <Routes>
-              <Route path="/" element={<WelcomePage/>} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/ecommerce" element={<Ecommerce />} />
-              <Route path="/category" element={<Category />} />
-              <Route path="/order" element={<Order />} />
-              <Route path="/user" element={<User />} />
-              <Route path="/roles" element={<Roles />} />
-            </Routes>
-          </div>
-        </div>
-      </div>
-    </BrowserRouter> */}
     </>
   );
 }

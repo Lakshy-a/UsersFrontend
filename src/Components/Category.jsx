@@ -4,13 +4,15 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Category = () => {
   const fetchCategories = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:3000/categories/categories"
+        "http://localhost:3000/categories/allCategories"
       );
+      // console.log(res);
       return res.data;
     } catch (err) {
       console.error(err);
@@ -47,8 +49,10 @@ const Category = () => {
               {categories.map((category) => (
                 <div key={category._id} className="product box-border	w-1/3 p-2 ">
                   <p className="text-lg font-bold	"></p>
-                  <img src={category.image} alt={category} className="w-72 cursor-pointer" />
-                  <p className="text-center text-2xl font-bold cursor-pointer">{category.name}</p>
+                  <Link to={`/category/${category.name}`}>
+                    <img src={category.image} alt={category.name} className="w-72 cursor-pointer" />
+                    <p className="text-center text-2xl font-bold cursor-pointer">{category.name}</p>
+                  </Link>
                 </div>
               ))}
             </div>
