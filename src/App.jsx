@@ -26,6 +26,7 @@ import Shoes from "./Components/Shoes";
 import Furniture from "./Components/Furniture";
 import Electronics from "./Components/Electronics";
 import Miscellaneous from "./Components/Miscellaneous";
+import AddProductNew from "./Components/AddProductNew";
 
 const componentMap = {
   Clothes,
@@ -68,6 +69,7 @@ function App() {
                 <Route path="/manageProducts/updateproduct" element={<UpdateProduct />} />
                 <Route path="/manageProducts/allProducts" element={<AllProducts />} />
                 <Route path="/category/:name" element={<DynamicComponent />} />
+                <Route path="/addNewProduct" element={<AddProductNew />} />
               </Routes>
             </div>
           </div>

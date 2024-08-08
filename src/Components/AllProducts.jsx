@@ -138,7 +138,7 @@ const AllProducts = () => {
                   </div>
                 </div>
               </div>
-              <div className="product-container flex flex-wrap">
+              <div className="product-container flex flex-wrap px-3">
                 {products.map((product) => (
                   <div
                     key={product._id}

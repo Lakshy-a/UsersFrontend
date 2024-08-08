@@ -62,7 +62,7 @@ function AddProduct() {
                     htmlFor="name"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Name
+                    Title
                   </label>
                   <input
                     type="text"
