@@ -79,6 +79,9 @@ const Sidebar = () => {
                     Update Products
                   </Link>
                 </li>
+                <li className="px-4 py-2 hover:bg-gray-200">
+                  <Link to="/manageProducts/allProducts">Product List</Link>
+                </li>
               </ul>
             </div>
           )}
@@ -188,7 +191,7 @@ const Sidebar = () => {
         </div>
 
         {/* all products */}
-        <div className="flex flex-col">
+        {/* <div className="flex flex-col">
           <div className="flex">
             <span className="w-1/5 flex justify-center items-center mx-2 material-symbols-outlined">
               box
@@ -205,7 +208,7 @@ const Sidebar = () => {
               </span>
             </div>
           </div>
-        </div>
+        </div> */}
       </ul>
     </div>
   );

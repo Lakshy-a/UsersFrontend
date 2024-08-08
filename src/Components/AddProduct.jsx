@@ -55,7 +55,7 @@ function AddProduct() {
               <Header />
             </div>
             <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg mt-1">
-              <h2 className="text-2xl font-bold mb-4">Add Product</h2>
+              <h2 className="text-2xl font-bold mb-4">Add New Product</h2>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label

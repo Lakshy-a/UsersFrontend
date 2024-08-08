@@ -6,3 +6,6 @@ Login/SignUp Page -https://dribbble.com/shots/24289214-User-Login-Page-Design
 
 fake data - https://app.beeceptor.com/mock-server/fake-store-api
 
+
+https://themeforest.net/item/remos-ecommerce-admin-dashboard-figma-templat/screenshots/49673102?index=1
+
