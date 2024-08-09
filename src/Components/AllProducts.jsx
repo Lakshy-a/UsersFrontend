@@ -10,7 +10,7 @@ const AllProducts = () => {
   const navigate = useNavigate();
 
   const handleAddNew = () => {
-    navigate("/manageProducts/addProduct"); // Replace with the route you want to navigate to
+    navigate("/manageProducts/addNewProduct"); // Replace with the route you want to navigate to
   };
 
   const [products, setProducts] = useState([]);

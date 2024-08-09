@@ -67,7 +67,7 @@ const Sidebar = () => {
             <div className="mt-2 bg-white border border-gray-300 rounded shadow-lg">
               <ul className="py-2">
                 <li className="px-4 py-2 hover:bg-gray-200">
-                  <Link to="/manageProducts/addProduct">Add Products</Link>
+                  <Link to="/manageProducts/addNewProduct">Add Products</Link>
                 </li>
                 <li className="px-4 py-2 hover:bg-gray-200">
                   <Link to="/manageProducts/removeProduct">

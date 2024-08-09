@@ -29,7 +29,7 @@ function Clothes() {
   return (
     <div>
     <div>
-      <div className="app-container h-screen w-screen flex">
+      <div className="app-container h-screen w-screen flex overflow-x-auto">
         <div className="sidebar h-full w-1/5">
           <Sidebar />
         </div>
