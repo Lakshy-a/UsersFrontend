@@ -66,7 +66,7 @@ function App() {
                 <Route path="/roles" element={<Roles />} />
                 <Route path="/manageProducts/addproduct" element={<AddProduct />} />
                 <Route path="/manageProducts/removeProduct" element={<RemoveProduct />} />
-                <Route path="/manageProducts/updateproduct:id" element={<UpdateProduct />} />
+                <Route path="/manageProducts/updateproduct/:id" element={<UpdateProduct />} />
                 <Route path="/manageProducts/allProducts" element={<AllProducts />} />
                 <Route path="/category/:name" element={<DynamicComponent />} />
                 <Route path="/manageProducts/addNewProduct" element={<AddProductNew />} />

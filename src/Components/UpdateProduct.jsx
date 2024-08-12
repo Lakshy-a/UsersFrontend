@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function AddProductNew() {
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -30,30 +31,58 @@ function AddProductNew() {
         const base64String = reader.result;
         setSelectedImage(base64String);
         setFormData({ ...formData, imageUrl: base64String });
-        console.log(base64String)
+        console.log(base64String);
       };
       reader.readAsDataURL(file);
     }
   };
+
+  useEffect(() => {
+    // Fetch product details from backend using the productId
+    const fetchProduct = async () => {
+      try {
+        console.log(id);
+        const response = await axios.get(`http://localhost:3000/manageProducts/getProduct/${id}`);
+        const product = response.data;
+        console.log(product);
+
+        setFormData({
+          name: product.title || "",
+          description: product.description || "",
+          price: product.price || "",
+          category: product.category || "Clothes",
+          imageUrl: product.productImage || "",
+        });
+
+        if (product.productImage) {
+          setSelectedImage(product.productImage);
+        }
+      } catch (error) {
+        console.error('Error fetching product details:', error);
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
     console.log("Submitting form data:", formData);
 
     try {
-      const response = await axios.post(
-        `http://localhost:3000/manageProducts/updateProduct/${formData.productId}`,
+      const response = await axios.put(
+        `http://localhost:3000/manageProducts/updateProduct/${id}`,
         formData
       );
       console.log("Response:", response.data);
-    //   alert("Product added successfully");
-    //   navigate("/manageProducts/allProducts");
+      alert("Product updated successfully");
+      navigate("/manageProducts/allProducts");
     } catch (error) {
       console.error(
-        "Error adding product:",
+        "Error updating product:",
         error.response ? error.response.data : error.message
       );
-      alert("Error adding product");
+      alert("Error updating product");
     }
   };
 
@@ -74,13 +103,15 @@ function AddProductNew() {
             <div className="flex gap-4">
               {/* product details */}
               <div className="w-1/2 h-fit bg-white rounded-xl shadow-md p-8">
-                <form className="space-y-4" onSubmit={handleUpdate}>
+                <form className="space-y-4" 
+                onSubmit={handleUpdate}
+                >
                   <div>
                     <label
                       htmlFor="name"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      New Title <span className="text-red-600 text-md">*</span>
+                      New Title: <span className="text-red-600 text-md">*</span>
                     </label>
                     <input
                       type="text"
@@ -106,7 +137,6 @@ function AddProductNew() {
                     </label>
                     <textarea
                       rows={5}
-                      type="text"
                       id="description"
                       name="description"
                       value={formData.description}
@@ -116,7 +146,7 @@ function AddProductNew() {
                     />
                     <div className="text-xs mt-1 text-gray-500">
                       Do not exceed 100 characters when entering the product
-                      name.
+                      description.
                     </div>
                   </div>
                   <div>
@@ -156,6 +186,9 @@ function AddProductNew() {
                       <option>Miscellaneous</option>
                     </select>
                   </div>
+                  <div className="flex gap-2 items-center mt-4">
+                    
+                  </div>
                 </form>
               </div>
 
@@ -194,25 +227,14 @@ function AddProductNew() {
                   </label>
                 </div>
                 <div className="mt-16 mb-4 w-full h-fit flex justify-start pl-8">
-                  {/* <button
-                    type="submit"
-                    className="py-2 px-6 rounded-xl bg-blue-600 text-white text-sm hover:bg-white hover:text-blue-600 border border-blue-600 font-semibold"
-                    onClick={handleSubmit}
-                  >
-                    Add product
-                  </button> */}
+                  {/* Add or Update button */}
                   <button
                     type="submit"
-                    className="py-2 px-6 rounded-xl text-sm text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white font-semibold" onClick={handleUpdate}
+                    className="py-2 px-6 rounded-xl text-sm text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white font-semibold"
+                    onClick={handleUpdate}
                   >
                     Update product
                   </button>
-                  {/* <button
-                    type="submit"
-                    className="py-2 px-6 rounded-xl text-gray-500 text-sm font-semibold border hover:bg-blue-600 hover:text-white"
-                  >
-                    Schedule
-                  </button> */}
                 </div>
               </div>
             </div>

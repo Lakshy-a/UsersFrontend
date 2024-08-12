@@ -54,11 +54,11 @@ const AllProducts = () => {
   const updateProduct = async (productId) => {
     try {
       // Make the backend call to update the product with productId
-      const response = await axios.post(
-        `http://localhost:3000/manageProducts/updateProduct/${productId}`
-      );
+      // const response = await axios.post(
+      //   `http://localhost:3000/manageProducts/updateProduct/${productId}`
+      // );
   
-      console.log('Product updated:', response.data);
+      // console.log('Product updated:', response.data);
   
       // Navigate to the update page
       navigate(`/manageProducts/updateProduct/${productId}`);
