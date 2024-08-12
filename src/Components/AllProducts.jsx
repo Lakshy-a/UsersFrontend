@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import DynamicTable from "./DynamicTable";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -15,7 +14,7 @@ const AllProducts = () => {
 
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(12);
+  const [limit, setLimit] = useState(10);
   const [sort, setSort] = useState("createdAt");
   const [asc, setAsc] = useState(true);
 
@@ -53,18 +52,11 @@ const AllProducts = () => {
 
   const updateProduct = async (productId) => {
     try {
-      // Make the backend call to update the product with productId
-      // const response = await axios.post(
-      //   `http://localhost:3000/manageProducts/updateProduct/${productId}`
-      // );
-  
-      // console.log('Product updated:', response.data);
-  
       // Navigate to the update page
       navigate(`/manageProducts/updateProduct/${productId}`);
     } catch (error) {
-      // console.error('Error updating product:', error.response ? error.response.data : error.message);
-      // alert('Error updating product');
+      console.error('Error updating product:', error.response ? error.response.data : error.message);
+      alert('Error updating product');
     }
   };
 
@@ -79,6 +71,11 @@ const AllProducts = () => {
 
   const handlePageChange = (newPage) => {
     setPage(newPage);
+  };
+
+  const handleLimitChange = (event) => {
+    setLimit(parseInt(event.target.value, 10));
+    setPage(1); // Reset to the first page whenever the limit changes
   };
 
   const handleEditProduct = (event) => {
@@ -123,10 +120,14 @@ const AllProducts = () => {
                 </div>
                 <div className="text-black text-base flex items-center justify-center w-16 border rounded-xl px-2">
                   {" "}
-                  <select className="border-none w-16 outline-none pr-4 rounded-xl text-sm">
-                    <option value="option1">10</option>
-                    <option value="option2">20</option>
-                    <option value="option3">30</option>
+                  <select 
+                    className="border-none w-16 outline-none pr-4 rounded-xl text-sm"
+                    value={limit}
+                    onChange={handleLimitChange}
+                  >
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
                   </select>
                 </div>
                 <div className="text-gray-400	text-sm flex items-center justify-center h-full w-24">
@@ -195,9 +196,7 @@ const AllProducts = () => {
                     <div className="h-full w-28 font-semibold px-6 py-3 text-sm">
                       {product.category.name}
                     </div>
-                    {/* <div className="h-full w-28 font-semibold px-6 py-3 text-md">Sale</div>
-                  <div className="h-full w-28 font-semibold px-6 py-3 text-md">Stock</div>*/}
-                  <div className="h-full w-28 font-semibold px-6 py-3 text-sm text-yellow-500">Draft</div> 
+                    <div className="h-full w-28 font-semibold px-6 py-3 text-sm text-yellow-500">Draft</div> 
                     <div className="h-full w-40 font-semibold px-6 py-3 text-sm">
                       {/* view product icon */}
                       <span className="text-blue-400 hover:text-blue-600 material-symbols-outlined text-xl">
@@ -216,10 +215,7 @@ const AllProducts = () => {
                 ))}
               </div>
             </div>
-
-            <div className="mt-8">
-              {/* pagination div */}
-              <div className="flex justify-end mr-8 gap-2">
+            <div className="flex justify-end mr-8 gap-2 mt-8">
                 <button
                   onClick={() => handlePageChange(page - 1)}
                   disabled={page === 1}
@@ -242,29 +238,6 @@ const AllProducts = () => {
                   </span>
                 </button>
               </div>
-
-              {/* sort div */}
-              {/* <div>
-                <label className="bg-[#3482FD] pl-3 pr-1 pt-1 pb-1 text-white rounded font-semibold border-2 border-black">
-                  Sort By:
-                  <select
-                    value={sort}
-                    onChange={handleSortChange}
-                    className="bg-[#3482FD]"
-                  >
-                    <option value="createdAt">Created At</option>
-                    <option value="price">Price</option>
-                    <option value="name">Name</option>
-                  </select>
-                </label>
-                <button
-                  onClick={handleOrderChange}
-                  className="bg-[#3482FD] pl-3 pr-3 pt-1 pb-1 text-white rounded font-semibold border-2 border-black ml-2"
-                >
-                  Order: {asc ? "Ascending" : "Descending"}
-                </button>
-              </div> */}
-            </div>
           </div>
         </div>
       </div>

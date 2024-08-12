@@ -27,6 +27,7 @@ import Furniture from "./Components/Furniture";
 import Electronics from "./Components/Electronics";
 import Miscellaneous from "./Components/Miscellaneous";
 import AddProductNew from "./Components/AddProductNew";
+import AddCategory from "./Components/AddCategory";
 
 const componentMap = {
   Clothes,
@@ -61,6 +62,7 @@ function App() {
                 <Route path="/manageProducts" element={<ManageProducts />} />
                 <Route path="/ecommerce" element={<Ecommerce />} />
                 <Route path="/category" element={<Category />} />
+                <Route path="/addCategory" element={<AddCategory/>} />
                 <Route path="/order" element={<Order />} />
                 <Route path="/user" element={<User />} />
                 <Route path="/roles" element={<Roles />} />

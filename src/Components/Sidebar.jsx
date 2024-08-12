@@ -48,12 +48,12 @@ const Sidebar = () => {
             >
               database
             </span>
-            <div className="w-4/5 flex justify-between items-center">
+            <div className="w-4/5 flex justify-between items-center cursor-pointer">
               <li
                 className="py-4 text-lg"
                 onClick={() => toggleDropdown("manageProducts")}
               >
-                <Link to="/manageProducts">Manage Products</Link>
+                Manage Products
               </li>
               <span
                 className="material-symbols-outlined cursor-pointer"
@@ -67,17 +67,7 @@ const Sidebar = () => {
             <div className="mt-2 bg-white border border-gray-300 rounded shadow-lg">
               <ul className="py-2">
                 <li className="px-4 py-2 hover:bg-gray-200">
-                  <Link to="/manageProducts/addNewProduct">Add Products</Link>
-                </li>
-                <li className="px-4 py-2 hover:bg-gray-200">
-                  <Link to="/manageProducts/removeProduct">
-                    Remove Products
-                  </Link>
-                </li>
-                <li className="px-4 py-2 hover:bg-gray-200">
-                  <Link to="/manageProducts/updateProduct">
-                    Update Products
-                  </Link>
+                  <Link to="/manageProducts/addNewProduct">Add Product</Link>
                 </li>
                 <li className="px-4 py-2 hover:bg-gray-200">
                   <Link to="/manageProducts/allProducts">Product List</Link>
@@ -111,14 +101,16 @@ const Sidebar = () => {
         </div>
 
         {/* category */}
-        <div className="flex flex-col">
+        <div className="flex flex-col cursor-pointer">
           <div className="flex">
-            <span className="w-1/5 flex justify-center items-center mx-2 material-symbols-outlined">
+            <span className="w-1/5 flex justify-center items-center mx-2 material-symbols-outlined"
+            onClick={() => toggleDropdown("category")}>
               category
             </span>
             <div className="w-4/5 flex justify-between items-center">
-              <li className="py-4 text-lg">
-                <Link to="/category">Categories</Link>
+              <li className="py-4 text-lg"  onClick={() => toggleDropdown("category")}>
+                {/* <Link to="/category">Categories</Link> */}
+                Category
               </li>
               <span
                 className="material-symbols-outlined cursor-pointer"
@@ -128,6 +120,18 @@ const Sidebar = () => {
               </span>
             </div>
           </div>
+          {dropdowns.category && (
+            <div className="mt-2 bg-white border border-gray-300 rounded shadow-lg">
+              <ul className="py-2">
+                <li className="px-4 py-2 hover:bg-gray-200">
+                  <Link to="/category">Category List</Link>
+                </li>
+                <li className="px-4 py-2 hover:bg-gray-200">
+                  <Link to="/addCategory">Add Caregory</Link>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
 
         {/* orders */}
