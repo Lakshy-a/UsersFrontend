@@ -39,6 +39,35 @@ const AllProducts = () => {
     }
   };
 
+  const deleteProduct = async (productId) => {
+    try {
+      const response = await axios.delete(`http://localhost:3000/manageProducts/removeProduct/${productId}`);
+      console.log("Product deleted:", response.data);
+  
+      // Optionally, update the frontend to remove the deleted product from the list
+      setProducts((prevProducts) => prevProducts.filter(product => product._id !== productId));
+    } catch (error) {
+      console.error("Error deleting product:", error.response ? error.response.data : error.message);
+    }
+  };
+
+  const updateProduct = async (productId) => {
+    try {
+      // Make the backend call to update the product with productId
+      const response = await axios.post(
+        `http://localhost:3000/manageProducts/updateProduct/${productId}`
+      );
+  
+      console.log('Product updated:', response.data);
+  
+      // Navigate to the update page
+      navigate(`/manageProducts/updateProduct/${productId}`);
+    } catch (error) {
+      // console.error('Error updating product:', error.response ? error.response.data : error.message);
+      // alert('Error updating product');
+    }
+  };
+
   useEffect(() => {
     const getProducts = async () => {
       const productsFromAPI = await fetchProducts(page, limit, sort, asc);
@@ -48,21 +77,24 @@ const AllProducts = () => {
     getProducts();
   }, [page, limit, sort, asc]);
 
-  const handleSortChange = (e) => {
-    setSort(e.target.value);
-  };
-
-  const handleOrderChange = () => {
-    setAsc(!asc);
-  };
-
   const handlePageChange = (newPage) => {
     setPage(newPage);
   };
 
-  const handleEditProduct = () => {
-    navigate("/manageProducts/updateProduct");
+  const handleEditProduct = (event) => {
+    const productId = event.currentTarget.getAttribute("data-id");
+    console.log("Updating product with ID:", productId);
+    
+    updateProduct(productId);
   }
+
+  const handleDeleteClick = (event) => {
+    const productId = event.currentTarget.getAttribute("data-id");
+    console.log("Deleting product with ID:", productId);
+    
+    // Call a function to delete the product
+    deleteProduct(productId);
+  };
 
   return (
     <div className="app-container h-screen w-screen flex overflow-x-auto">
@@ -167,13 +199,16 @@ const AllProducts = () => {
                   <div className="h-full w-28 font-semibold px-6 py-3 text-md">Stock</div>*/}
                   <div className="h-full w-28 font-semibold px-6 py-3 text-sm text-yellow-500">Draft</div> 
                     <div className="h-full w-40 font-semibold px-6 py-3 text-sm">
+                      {/* view product icon */}
                       <span className="text-blue-400 hover:text-blue-600 material-symbols-outlined text-xl">
                         visibility
                       </span>
-                      <span className="text-green-400 hover:text-green-600 ml-5 material-symbols-outlined text-xl" onClick={handleEditProduct}>
+                      {/* edit icon */}
+                      <span className="text-green-400 hover:text-green-600 ml-5 material-symbols-outlined text-xl" data-id={product._id} onClick={handleEditProduct}>
                         border_color
                       </span>
-                      <span className="text-red-400 hover:text-red-500 ml-5 text-xl material-symbols-outlined">
+                      {/* delete icon */}
+                      <span className="text-red-400 hover:text-red-500 ml-5 text-xl material-symbols-outlined" data-id={product._id} onClick={handleDeleteClick}>
                         delete
                       </span>
                     </div>
