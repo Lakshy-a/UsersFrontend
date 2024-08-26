@@ -1,12 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 
 function Login() {
   const navigate = useNavigate();
@@ -15,7 +14,6 @@ function Login() {
   const initialValues = {
     email: "",
     password: "",
-    role: "user", // Default role
   };
 
   // Yup validation schema
@@ -26,31 +24,19 @@ function Login() {
       .matches(/[0-9]/, "Password requires a number")
       .matches(/[a-z]/, "Password requires a lowercase letter")
       .matches(/[A-Z]/, "Password requires an uppercase letter")
-      .matches(/[^\w]/, "Password requires a symbol"),
-    role: Yup.string().required("Required"),
+      .matches(/[^\w]/, "Password requires a symbol")
   });
 
   // On form submission
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      const response = await axios.post("http://localhost:3000/auth/login", {
-        email: values.email,
-        password: values.password,
-        role: values.role,
-      });
-      alert("Logged In");
-      console.log(response);
       console.log(values);
+      alert("Logged In");
 
-      // Store access token in local storage
-      localStorage.setItem("accessToken", response.data.token);
-
-      if (response.status === 200) {
-        // On successful login, navigate to the home page
-        navigate("/home");
-      }
+      // On successful login, navigate to the home page
+      navigate("/home");
     } catch (error) {
-      alert("Logged Fialed!");
+      alert("Login Failed!");
       console.log(error);
     }
     setSubmitting(false);
@@ -92,21 +78,6 @@ function Login() {
                 />
                 <ErrorMessage
                   name="password"
-                  component="div"
-                  className="text-red-600"
-                />
-              </div>
-              <div>
-                <Field
-                  as="select"
-                  name="role"
-                  className="w-80 h-10 rounded-lg border-2 border-gray-300 pl-2 my-4"
-                >
-                  <option value="user">User</option>
-                  <option value="admin">Admin</option>
-                </Field>
-                <ErrorMessage
-                  name="role"
                   component="div"
                   className="text-red-600"
                 />

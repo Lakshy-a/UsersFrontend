@@ -12,7 +12,7 @@ const Dashboard = () => {
       </div>
       <div className="w-full lg:w-4/5 flex flex-col">
         <Header />
-        <div className="p-4 flex-grow">
+        {/* <div className="p-4 flex-grow">
           <h2 className="text-xl font-bold mb-4">
             Welcome to the Admin Dashboard
           </h2>
@@ -38,7 +38,7 @@ const Dashboard = () => {
               <span className="text-blue-500">1.56%</span>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

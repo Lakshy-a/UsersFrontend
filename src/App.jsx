@@ -28,6 +28,10 @@ import Electronics from "./Components/Electronics";
 import Miscellaneous from "./Components/Miscellaneous";
 import AddProductNew from "./Components/AddProductNew";
 import AddCategory from "./Components/AddCategory";
+import Blog from "./Components/Blog";
+import AllBlogs from "./Components/AllBlogs";
+import CreateBlog from "./Components/CreateBlog";
+import EditBlog from "./Components/EditBlog";
 
 const componentMap = {
   Clothes,
@@ -59,7 +63,11 @@ function App() {
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/home/*" element={<Home />} />
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/manageProducts" element={<ManageProducts />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/allBlogs" element={<AllBlogs />} />
+                <Route path="/createBlog" element={<CreateBlog />} />
+                <Route path="/editBlog" element={<EditBlog />} />
+                {/* <Route path="/manageProducts" element={<ManageProducts />} />
                 <Route path="/ecommerce" element={<Ecommerce />} />
                 <Route path="/category" element={<Category />} />
                 <Route path="/addCategory" element={<AddCategory/>} />
@@ -71,7 +79,7 @@ function App() {
                 <Route path="/manageProducts/updateproduct/:id" element={<UpdateProduct />} />
                 <Route path="/manageProducts/allProducts" element={<AllProducts />} />
                 <Route path="/category/:name" element={<DynamicComponent />} />
-                <Route path="/manageProducts/addNewProduct" element={<AddProductNew />} />
+                <Route path="/manageProducts/addNewProduct" element={<AddProductNew />} /> */}
               </Routes>
             </div>
           </div>

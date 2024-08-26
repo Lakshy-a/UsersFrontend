@@ -40,12 +40,12 @@ const Header = () => {
           grid_view
         </span>
 
-        <div className="cursor-pointer flex items-center border-gray-00 border-2 rounded-lg px-2">
+        <div className="cursor-pointer flex items-center px-2">
           <img className="w-24 h-16 rounded-full" src={admin} alt="Profile" />
-          <span className="ml-4 text-lg font-bold">
+          {/* <span className="ml-4 text-lg font-bold">
             Kristin Watson <br />
             (Admin)
-          </span>
+          </span> */}
         </div>
       </header>
     </>

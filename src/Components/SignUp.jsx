@@ -1,12 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom"; 
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 
 function Signup() {
   const navigate = useNavigate();
@@ -16,7 +15,6 @@ function Signup() {
     username: "",
     email: "",
     password: "",
-    role: "user", // Default role
   };
 
   // Yup validation schema
@@ -30,22 +28,20 @@ function Signup() {
       .matches(/[0-9]/, "Password requires a number")
       .matches(/[a-z]/, "Password requires a lowercase letter")
       .matches(/[A-Z]/, "Password requires an uppercase letter")
-      .matches(/[^\w]/, "Password requires a symbol"),
-    role: Yup.string().required("Role is required"),
+      .matches(/[^\w]/, "Password requires a symbol")
   });
 
   // On form submission
   const onSubmit = async (values, { setSubmitting }) => {
     try {
-      const response = await axios.post("http://localhost:3000/auth/signup", {
-        username: values.username,
-        email: values.email,
-        password: values.password,
-        role: values.role,
-      });
+      console.log(values);
+
+      alert("Sign Up Successful");
+
+      // Navigate to the login page on successful signup
       navigate("/login");
-      console.log(response);
     } catch (error) {
+      alert("Sign Up Failed!");
       console.log(error);
     }
     setSubmitting(false);
@@ -100,17 +96,6 @@ function Signup() {
                 />
                 <ErrorMessage
                   name="password"
-                  component="div"
-                  className="text-red-600"
-                />
-              </div>
-              <div>
-                <Field as="select" name="role" className="w-80 h-10 rounded-lg border-2 border-gray-300 mt-4 pl-2">
-                  <option value="user">User</option>
-                  <option value="admin">Admin</option>
-                </Field>
-                <ErrorMessage
-                  name="role"
                   component="div"
                   className="text-red-600"
                 />

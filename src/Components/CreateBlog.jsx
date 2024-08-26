@@ -5,21 +5,34 @@ import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 
-function AddProductNew() {
+function CreateBlog() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     price: "",
-    category: "Clothes",
-    imageUrl: "", // Adding imageUrl to formData
+    category: [], // Array to hold multiple categories
+    imageUrl: "",
   });
 
   const [selectedImage, setSelectedImage] = useState(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === "category") {
+      // Handle the category selection
+      const updatedCategories = [...formData.category];
+      if (updatedCategories.includes(value)) {
+        updatedCategories.splice(updatedCategories.indexOf(value), 1);
+      } else {
+        updatedCategories.push(value);
+      }
+      setFormData({ ...formData, category: updatedCategories });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleImageUpload = (event) => {
@@ -30,7 +43,7 @@ function AddProductNew() {
         const base64String = reader.result;
         setSelectedImage(base64String);
         setFormData({ ...formData, imageUrl: base64String });
-        console.log(base64String)
+        console.log(base64String);
       };
       reader.readAsDataURL(file);
     }
@@ -56,6 +69,10 @@ function AddProductNew() {
     }
   };
 
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
   return (
     <div>
       <div className="app-container h-screen w-screen flex overflow-x-auto">
@@ -68,7 +85,7 @@ function AddProductNew() {
           </div>
           <div className="w-full h-fit bg-[#F2F7FB] pl-8 pr-8 pt-8 ">
             <div className="w-full h-16 ">
-              <h2 className="text-2xl font-bold">Add Product</h2>
+              <h2 className="text-2xl font-bold">Add Blog</h2>
             </div>
             <div className="flex gap-4">
               {/* product details */}
@@ -90,10 +107,6 @@ function AddProductNew() {
                       className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       required
                     />
-                    <div className="text-xs mt-1 text-gray-500">
-                      Do not exceed 20 characters when entering the product
-                      name.
-                    </div>
                   </div>
                   <div>
                     <label
@@ -113,47 +126,46 @@ function AddProductNew() {
                       className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       required
                     />
-                    <div className="text-xs mt-1 text-gray-500">
-                      Do not exceed 100 characters when entering the product
-                      name.
-                    </div>
                   </div>
-                  <div>
-                    <label
-                      htmlFor="price"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Price <span className="text-red-600 text-md">*</span>
-                    </label>
-                    <input
-                      type="number"
-                      id="price"
-                      name="price"
-                      value={formData.price}
-                      onChange={handleChange}
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      required
-                    />
-                  </div>
-                  <div className="flex gap-2 items-center">
+                  <div className="relative">
                     <label
                       htmlFor="category"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      Category:
+                      Tags:
                     </label>
-                    <select
-                      name="category"
-                      value={formData.category}
-                      onChange={handleChange}
-                      className="text-sm font-medium text-gray-700 w-full h-10 border rounded-md pl-2 focus:outline-none"
+                    <div
+                      className="text-sm font-medium text-gray-700 w-full h-10 border rounded-md pl-2 focus:outline-none cursor-pointer flex items-center mt-4"
+                      onClick={toggleDropdown}
                     >
-                      <option>Clothes</option>
-                      <option>Shoes</option>
-                      <option>Electronics</option>
-                      <option>Furniture</option>
-                      <option>Miscellaneous</option>
-                    </select>
+                      {formData.category.length === 0
+                        ? "Categories"
+                        : formData.category.join(", ")}
+                    </div>
+                    {isDropdownOpen && (
+                      <div className="absolute z-10 mt-2 w-full bg-white border rounded-md shadow-lg">
+                        <div className="p-2">
+                          {["Clothes", "Shoes", "Electronics", "Furniture", "Miscellaneous"].map(
+                            (option) => (
+                              <label
+                                key={option}
+                                className="block cursor-pointer"
+                              >
+                                <input
+                                  type="checkbox"
+                                  name="category"
+                                  value={option}
+                                  checked={formData.category.includes(option)}
+                                  onChange={handleChange}
+                                  className="mr-2"
+                                />
+                                {option}
+                              </label>
+                            )
+                          )}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </form>
               </div>
@@ -192,25 +204,19 @@ function AddProductNew() {
                     />
                   </label>
                 </div>
-                <div className="mt-16 mb-4 w-full h-fit flex justify-evenly">
+                <div className="mt-4 mb-2 w-full h-fit flex justify-evenly">
                   <button
                     type="submit"
                     className="py-2 px-6 rounded-xl bg-blue-600 text-white text-sm hover:bg-white hover:text-blue-600 border border-blue-600 font-semibold"
                     onClick={handleSubmit}
                   >
-                    Add product
+                    Add Blog
                   </button>
                   <button
                     type="submit"
                     className="py-2 px-6 rounded-xl text-sm text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white font-semibold"
                   >
-                    Save product
-                  </button>
-                  <button
-                    type="submit"
-                    className="py-2 px-6 rounded-xl text-gray-500 text-sm font-semibold border hover:bg-blue-600 hover:text-white"
-                  >
-                    Schedule
+                    Save Blog
                   </button>
                 </div>
               </div>
@@ -222,4 +228,4 @@ function AddProductNew() {
   );
 }
 
-export default AddProductNew;
+export default CreateBlog;
