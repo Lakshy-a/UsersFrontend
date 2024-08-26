@@ -5,14 +5,13 @@ import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 
-function CreateBlog() {
+function CreateUser() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    category: [],
-    imageUrl: "",
+    roles: []
   });
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -20,29 +19,16 @@ function CreateBlog() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "category") {
-      const updatedCategories = [...formData.category];
-      if (updatedCategories.includes(value)) {
-        updatedCategories.splice(updatedCategories.indexOf(value), 1);
+    if (name === "roles") {
+      const updatedRoles = [...formData.roles];
+      if (updatedRoles.includes(value)) {
+        updatedRoles.splice(updatedRoles.indexOf(value), 1);
       } else {
-        updatedCategories.push(value);
+        updatedRoles.push(value);
       }
-      setFormData({ ...formData, category: updatedCategories });
+      setFormData({ ...formData, roles: updatedRoles });
     } else {
       setFormData({ ...formData, [name]: value });
-    }
-  };
-
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result;
-        setSelectedImage(base64String);
-        setFormData({ ...formData, imageUrl: base64String });
-      };
-      reader.readAsDataURL(file);
     }
   };
 
@@ -54,14 +40,15 @@ function CreateBlog() {
         "http://localhost:3000/manageProducts/addProduct",
         formData
       );
-      alert("Product added successfully");
+      console.log("Response:", response.data);
+      alert("User added successfully");
       navigate("/manageProducts/allProducts");
     } catch (error) {
       console.error(
-        "Error adding product:",
+        "Error adding user:",
         error.response ? error.response.data : error.message
       );
-      alert("Error adding product");
+      alert("Error adding user");
     }
   };
 
@@ -78,10 +65,9 @@ function CreateBlog() {
         <Header />
         <div className="w-full h-fit bg-[#F2F7FB] pl-8 pr-8 pt-8">
           <div className="w-full h-16">
-            <h2 className="text-2xl font-bold">Edit Blog</h2>
+            <h2 className="text-2xl font-bold">Add User</h2>
           </div>
           <div className="flex gap-4">
-            {/* Blog details */}
             <div className="w-1/2 h-fit bg-white rounded-xl shadow-md p-8">
               <form className="space-y-4" onSubmit={handleSubmit}>
                 <div>
@@ -89,7 +75,7 @@ function CreateBlog() {
                     htmlFor="name"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Title <span className="text-red-600">*</span>
+                    Name <span className="text-red-600 text-md">*</span>
                   </label>
                   <input
                     type="text"
@@ -106,7 +92,7 @@ function CreateBlog() {
                     htmlFor="description"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Description <span className="text-red-600">*</span>
+                    Description <span className="text-red-600 text-md">*</span>
                   </label>
                   <textarea
                     rows={5}
@@ -120,49 +106,50 @@ function CreateBlog() {
                 </div>
                 <div className="relative">
                   <label
-                    htmlFor="category"
+                    htmlFor="roles"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Tags:
+                    Roles:
                   </label>
                   <div
                     className="text-sm font-medium text-gray-700 w-full h-10 border rounded-md pl-2 focus:outline-none cursor-pointer flex items-center mt-4"
                     onClick={toggleDropdown}
                   >
-                    {formData.category.length === 0
-                      ? "Categories"
-                      : formData.category.join(", ")}
+                    {formData.roles.length === 0
+                      ? "Select Roles"
+                      : formData.roles.join(", ")}
                   </div>
                   {isDropdownOpen && (
                     <div className="absolute z-10 mt-2 w-full bg-white border rounded-md shadow-lg">
                       <div className="p-2">
-                        {["Clothes", "Shoes", "Electronics", "Furniture", "Miscellaneous"].map(
-                          (option) => (
-                            <label
-                              key={option}
-                              className="block cursor-pointer"
-                            >
-                              <input
-                                type="checkbox"
-                                name="category"
-                                value={option}
-                                checked={formData.category.includes(option)}
-                                onChange={handleChange}
-                                className="mr-2"
-                              />
-                              {option}
-                            </label>
-                          )
-                        )}
+                        {["Admin", "Editor", "Viewer"].map((role) => (
+                          <label key={role} className="block cursor-pointer">
+                            <input
+                              type="checkbox"
+                              name="roles"
+                              value={role}
+                              checked={formData.roles.includes(role)}
+                              onChange={handleChange}
+                              className="mr-2"
+                            />
+                            {role}
+                          </label>
+                        ))}
                       </div>
                     </div>
                   )}
                 </div>
+                <div className="mt-4 mb-2 w-full h-fit flex justify-start">
+                  <button
+                    type="submit"
+                    className="py-2 px-6 rounded-xl bg-blue-600 text-white text-sm hover:bg-white hover:text-blue-600 border border-blue-600 font-semibold"
+                  >
+                    Add User
+                  </button>
+                </div>
               </form>
             </div>
-
-            {/* Blog image */}
-            <div className="imageUploader w-1/2 h-fit bg-white rounded-xl shadow-md pb-8">
+            {/* <div className="imageUploader w-1/2 h-fit bg-white rounded-xl shadow-md pb-8">
               <div className="text-sm font-medium text-gray-700 p-8">
                 Upload Image
               </div>
@@ -195,22 +182,7 @@ function CreateBlog() {
                   />
                 </label>
               </div>
-              <div className="mt-4 mb-2 w-full h-fit flex justify-evenly">
-                <button
-                  type="submit"
-                  className="py-2 px-6 rounded-xl bg-blue-600 text-white text-sm hover:bg-white hover:text-blue-600 border border-blue-600 font-semibold"
-                  onClick={handleSubmit}
-                >
-                  Edit Blog
-                </button>
-                <button
-                  type="submit"
-                  className="py-2 px-6 rounded-xl text-sm text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white font-semibold"
-                >
-                  Save Blog
-                </button>
-              </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -218,4 +190,4 @@ function CreateBlog() {
   );
 }
 
-export default CreateBlog;
+export default CreateUser;

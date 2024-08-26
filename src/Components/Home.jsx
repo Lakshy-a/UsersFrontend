@@ -4,12 +4,6 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import WelcomePage from "../Components/WelcomePage";
-import Dashboard from "./Dashboard";
-import Ecommerce from "./Ecommerce";
-import Order from "./Order";
-import Category from "./Category";
-import User from "./User";
-import Roles from "./Roles";
 
 function Home() {
   return (

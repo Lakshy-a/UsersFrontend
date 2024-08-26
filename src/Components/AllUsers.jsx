@@ -4,7 +4,7 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { useNavigate } from "react-router-dom";
 
-const AllProducts = () => {
+const AllUsers = () => {
   const navigate = useNavigate();
   
   // Sample data for products
@@ -12,7 +12,7 @@ const AllProducts = () => {
     {
       _id: "1",
       productImage: "image_url_1",
-      title: "Product 1",
+      title: "User 1",
       id: "101",
       price: "1000",
       category: { name: "Category 1" },
@@ -21,7 +21,7 @@ const AllProducts = () => {
     {
       _id: "2",
       productImage: "image_url_2",
-      title: "Product 2",
+      title: "User 2",
       id: "102",
       price: "1500",
       category: { name: "Category 2" },
@@ -35,7 +35,7 @@ const AllProducts = () => {
   const [filterStatus, setFilterStatus] = useState("All");
 
   const handleAddNew = () => {
-    navigate("/createBlog");
+    navigate("/createUser");
   };
 
   const handlePageChange = (newPage) => {
@@ -47,10 +47,10 @@ const AllProducts = () => {
     setPage(1); // Reset to the first page whenever the limit changes
   };
 
-  const handleEditProduct = (event) => {
+  const handleEditUser = (event) => {
     const productId = event.currentTarget.getAttribute("data-id");
     console.log("Updating product with ID:", productId);
-    navigate(`/editBlog`);
+    navigate(`/editUser`);
   };
 
   const handleDeleteClick = (event) => {
@@ -78,7 +78,7 @@ const AllProducts = () => {
         <Header />
         <div className="w-full h-fit bg-[#F2F7FB] pl-8 pr-8 pt-8">
           <div className="w-full h-16">
-            <h2 className="text-2xl font-bold">Blogs</h2>
+            <h2 className="text-2xl font-bold">All Users</h2>
           </div>
           <div className="w-full h-fit bg-white rounded-xl shadow-md pb-8">
             <div className="mt-4 w-full h-11 flex justify-between pr-4 m-4">
@@ -88,7 +88,7 @@ const AllProducts = () => {
                   onChange={handleFilterChange}
                   className="h-full w-32 border border-gray-300 rounded-md px-2 py-1 text-sm"
                 >
-                  <option value="All">All Blogs</option>
+                  <option value="All">All Users</option>
                   <option value="Active">Active</option>
                   <option value="Inactive">Inactive</option>
                 </select>
@@ -97,17 +97,17 @@ const AllProducts = () => {
                 className="h-full w-48 border border-blue-600 flex items-center justify-center cursor-pointer text-sm rounded-xl text-blue-600 font-bold hover:bg-blue-600 hover:text-white hover:font-medium"
                 onClick={handleAddNew}
               >
-                <button>+ ADD NEW</button>
+                <button>+ ADD USER</button>
               </div>
             </div>
             <div className="overflow-x-auto overflow-y-auto">
               <div className="mt-2 mb-2">
                 <div className="w-fit h-10 flex items-center gap-8">
                   <div className="h-full w-72 font-semibold pl-12 py-3 text-md">
-                    Blog
+                    All Users
                   </div>
                   <div className="h-full w-72 font-semibold px-6 py-3 text-md">
-                    Blog Status
+                    User Status
                   </div>
                   <div className="h-full w-72 font-semibold px-12 py-3 text-md">
                     Action
@@ -137,7 +137,7 @@ const AllProducts = () => {
                       <span 
                         className="text-green-400 hover:text-green-600 ml-5 material-symbols-outlined text-xl" 
                         data-id={product._id} 
-                        onClick={handleEditProduct}
+                        onClick={handleEditUser}
                       >
                         border_color
                       </span>
@@ -184,4 +184,4 @@ const AllProducts = () => {
   );
 };
 
-export default AllProducts;
+export default AllUsers;
